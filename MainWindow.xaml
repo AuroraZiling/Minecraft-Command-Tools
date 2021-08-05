@@ -42,7 +42,7 @@
             </Frame>
         </Button>
         <Label Content="基础命令" HorizontalAlignment="Left" Margin="60,144,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft YaHei UI Light"/>
-        <Grid x:Name="BasicPage" Visibility="Hidden" >
+        <Grid x:Name="BasicPage" Visibility="Hidden">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -50,7 +50,16 @@
             <Label Content="Basic Commands" HorizontalAlignment="Left" Margin="116,22,0,0" VerticalAlignment="Top" Foreground="#FFC8C8C8"/>
             <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="10,50,0,0" VerticalAlignment="Top" Width="774" Background="#FF7A7A7A"/>
             <Button x:Name="BasicCloseBtn" Content="Close" HorizontalAlignment="Left" Margin="703,10,0,0" VerticalAlignment="Top" Width="81" Height="35" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" BorderBrush="{x:Null}" Background="#FFFF8B8B" Click="BasicCloseBtn_Click"/>
-            <ListBox x:Name="BasicListBox" HorizontalAlignment="Left" Height="355" Margin="10,55,0,0" VerticalAlignment="Top" Width="170" Background="Transparent" Foreground="Black" BorderThickness="0" FontSize="14" SelectedIndex="0">
+            <Grid HorizontalAlignment="Left" Height="353" Margin="185,57,0,0" VerticalAlignment="Top" Width="599">
+                <Label Content="Minecraft" Margin="160,30,159,0" VerticalAlignment="Top" FontSize="48" FontFamily="OCR A Extended"/>
+                <Label Content="Basic Commands" Margin="92,100,92,0" VerticalAlignment="Top" FontSize="48" FontFamily="OCR A Extended"/>
+                <Label Content="基础命令" Margin="221,159,220,0" VerticalAlignment="Top" FontSize="36" FontFamily="Microsoft YaHei"/>
+                <iconPacks:PackIconBootstrapIcons Kind="ArrowBarLeft" Margin="10,311,0,0" Height="32" Width="32" RenderTransformOrigin="-5.131,0.544" />
+                <Label Content="选择命令" Margin="42,306,399,0" VerticalAlignment="Top" FontSize="24" FontFamily="Microsoft YaHei" RenderTransformOrigin="0.565,0.788"/>
+
+            </Grid>
+
+            <ListBox x:Name="BasicListBox" HorizontalAlignment="Left" Height="355" Margin="10,55,0,0" VerticalAlignment="Top" Width="170" Background="Transparent" Foreground="Black" BorderThickness="0" FontSize="14" SelectionChanged="BasicListBox_SelectionChanged">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Template">
@@ -90,8 +99,34 @@
                 <ListBoxItem Content="传送"/>
                 <ListBoxItem Content="经验"/>
             </ListBox>
+            <Grid x:Name="BasicGamemodeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="599">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="游戏模式" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <RadioButton x:Name="BasicGamemodeOnWorldRadio" Content="作用于世界" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicGamemodeOnWorldRadio_Checked"/>
+                <RadioButton x:Name="BasicGamemodeOnPlayerRadio" Content="作用于玩家" HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicGamemodeOnPlayerRadio_Checked"/>
+                <RadioButton x:Name="BasicGamemodeSurvivalRadio" Content="生存模式" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei" IsChecked="True"/>
+                <RadioButton x:Name="BasicGamemodeCreativeRadio" Content="创造模式" HorizontalAlignment="Left" Margin="130,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei"/>
+                <RadioButton x:Name="BasicGamemodeAdvantureRadio" Content="冒险模式" HorizontalAlignment="Left" Margin="210,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei"/>
+                <RadioButton x:Name="BasicGamemodeSpectatorRadio" Content="旁观者模式" HorizontalAlignment="Left" Margin="290,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei"/>
+                <Grid x:Name="BasicGamemodeSelectorGrid" HorizontalAlignment="Left" Height="89" Margin="10,124,0,0" VerticalAlignment="Top" Width="390" Visibility="Hidden">
+                    <ComboBox x:Name="BasicGamemodeComboBox" HorizontalAlignment="Left" Margin="168,27,0,0" VerticalAlignment="Top" Width="212" IsEditable="True" Height="30" FontFamily="Microsoft YaHei" SelectionChanged="BasicGamemodeComboBox_SelectionChanged">
+                        <ComboBoxItem Content="玩家:最近 (@p)"/>
+                        <ComboBoxItem Content="玩家:全部 (@a)"/>
+                        <ComboBoxItem Content="玩家:随机 (@r)"/>
+                        <ComboBoxItem Content="实体:全部 (@e)"/>
+                        <ComboBoxItem Content="实体:自己 (@s)"/>
+                    </ComboBox>
+                    <Label Content="玩家ID或目标选择器:" HorizontalAlignment="Left" Margin="39,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.59,0.258" Height="26" Width="124"/>
+                    <TextBox x:Name="BasicGamemodeTextBox" HorizontalAlignment="Left" Height="29" Margin="168,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" BorderBrush="{x:Null}"/>
+                </Grid>
+                <Button x:Name="BasicGamemodeOptBtn" Content="生成" HorizontalAlignment="Left" Margin="514,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicGamemodeOptBtn_Click"/>
+                <TextBox x:Name="BasicGamemodeOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="499" IsReadOnly="True"/>
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+            </Grid>
         </Grid>
-        <Grid x:Name="AboutPage" Visibility="Hidden" >
+        <Grid x:Name="AboutPage" >
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -101,9 +136,9 @@
             <Label Content="Minecraft Command Tools" Margin="162,57,162.6,0" VerticalAlignment="Top" FontSize="36"/>
             <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="162,110,0,0" VerticalAlignment="Top" Width="469" Background="#FF7A7A7A"/>
             <Label Content="The tool is available for Minecraft 1.13 and above" Margin="226,117,226.6,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Version: Dev 1" Margin="350,145,350.6,0" VerticalAlignment="Top"/>
+            <Label Content="Version: Dev Alpha 1 Fixed 2" Margin="296,145,297.6,0" VerticalAlignment="Top"/>
             <Label Content="更新日志:" HorizontalAlignment="Left" Margin="162,180,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <RichTextBox x:Name="AboutUpdateLogText" Height="197" Margin="180,213,180.6,0" VerticalAlignment="Top" IsReadOnly="True">
+            <RichTextBox x:Name="AboutUpdateLogText" Height="197" Margin="180,213,180.6,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text=""/>
