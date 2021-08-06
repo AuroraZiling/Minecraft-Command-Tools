@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -29,11 +22,14 @@ namespace CommandTools
         public MainWindow()
         {
             InitializeComponent();
+            //初始化 -> 自定义对话框
             MessageExt.Instance.ShowDialog = ShowDialog;
             MessageExt.Instance.ShowYesNo = ShowYesNo;
+            //初始化 -> 各窗口隐藏
             AboutPage.Visibility = Visibility.Hidden;
             BasicPage.Visibility = Visibility.Hidden;
             BasicGamemodeGrid.Visibility = Visibility.Hidden;
+            BasicGameruleGrid.Visibility = Visibility.Hidden;
             //获取嵌入的updateLog内容 -> About的更新日志
             Assembly updateLogAssembly = Assembly.GetExecutingAssembly();
             Stream updateLogConfigStream = updateLogAssembly.GetManifestResourceStream("CommandTools.updateLog.txt");
@@ -43,10 +39,23 @@ namespace CommandTools
             AboutUpdateLogText.Document = new FlowDocument(new Paragraph(new Run(updateLog)));
             FlowDocument updateLogDoc = new FlowDocument();
             Paragraph updateLogP = new Paragraph();
-            Run r = new Run(updateLog);
-            updateLogP.Inlines.Add(r);
+            Run updateLogR = new Run(updateLog);
+            updateLogP.Inlines.Add(updateLogR);
             updateLogDoc.Blocks.Add(updateLogP);
             AboutUpdateLogText.Document = updateLogDoc;
+            //获取嵌入的Licenses内容 -> About的许可证告示
+            Assembly licensesAssembly = Assembly.GetExecutingAssembly();
+            Stream licensesConfigStream = licensesAssembly.GetManifestResourceStream("CommandTools.licenses.txt");
+            byte[] licensesTmp = new byte[licensesConfigStream.Length];
+            _ = licensesConfigStream.Read(licensesTmp, 0, licensesTmp.Length);
+            string licenses = Encoding.UTF8.GetString(licensesTmp);
+            AboutLicencesText.Document = new FlowDocument(new Paragraph(new Run(licenses)));
+            FlowDocument licensesDoc = new FlowDocument();
+            Paragraph licensesP = new Paragraph();
+            Run licensesR = new Run(licenses);
+            licensesP.Inlines.Add(licensesR);
+            licensesDoc.Blocks.Add(licensesP);
+            AboutLicencesText.Document = licensesDoc;
         }
         /// <summary>
         /// 基础命令
@@ -59,8 +68,16 @@ namespace CommandTools
         {
             if (BasicListBox.SelectedItem.ToString().EndsWith("游戏模式"))
             {
+                BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicGamemodeGrid.Visibility = Visibility.Visible;
                 BasicGamemodeOnWorldRadio.IsChecked = true;
+            }
+            else if (BasicListBox.SelectedItem.ToString().EndsWith("游戏规则"))
+            {
+                BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicGameruleGrid.Visibility = Visibility.Visible;
+                BasicGameruleComboBox.SelectedIndex = 0;
+                BasicGameruleTrueRadio.IsChecked = true;
             }
         }
         /// <summary>
@@ -110,6 +127,61 @@ namespace CommandTools
             {
                 BasicGamemodeOptTextBox.Text = baseStr + effectPlayer;
             }
+        }
+
+        /// <summary>
+        /// 基础命令 - 游戏规则
+        /// </summary>
+        public string basicGameruleBaseStr = "/gamerule ";
+        
+        private void BasicGameruleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            basicGameruleBaseStr = "/gamerule ";
+            List<string> rules = new List<string>() { "announceAdvancements", "commandBlockOutput",
+                    "disableElytraMovementCheck", "disableRaids", "doDaylightCycle", "doEntityDrops",
+                    "doFireTick", "doInsomnia", "doImmediateRespawn", "doLimitedCrafting", "doMobLoot",
+                    "doMobSpawning", "doPatrolSpawning", "doTileDrops", "doTraderSpawning", "doWeatherCycle",
+                    "drowningDamage", "fallDamage", "fireDamage", "forgiveDeadPlayers", "freezeDamage", "keepInventory",
+                    "logAdminCommands", "mobGriefing", "naturalRegeneration", "reducedDebugInfo", "sendCommandFeedback",
+                    "showDeathMessages", "spectatorsGenerateChunks", "universalAnger", "maxCommandChainLength",
+                    "maxEntityCramming", "playersSleepingPercentage", "randomTickSpeed", "spawnRadius" };
+
+            if (BasicGameruleComboBox.SelectedIndex <= 29) //布尔值
+            {
+                BasicGameruleControlBoolGrid.Visibility = Visibility.Visible;
+                BasicGameruleControlIntGrid.Visibility = Visibility.Hidden;
+            }
+            else //整型
+            {
+                BasicGameruleControlBoolGrid.Visibility = Visibility.Hidden;
+                BasicGameruleControlIntGrid.Visibility = Visibility.Visible;
+            }
+            basicGameruleBaseStr += rules[BasicGameruleComboBox.SelectedIndex] + " ";
+        }
+
+        private void BasicGameruleOptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (BasicGameruleComboBox.SelectedIndex <= 29) //布尔值
+            {
+                BasicGameruleOptTextBox.Text = basicGameruleBaseStr + BasicGameruleTrueRadio.IsChecked.ToString().ToLower();
+            }
+            else //整型
+            {
+                if (BasicGameruleControlIntTextBox.Text == "")
+                {
+                    MessageExt.Instance.ShowDialog("您没有填入数值", "错误");
+                }
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(BasicGameruleControlIntTextBox.Text, @"^\d*$"))
+                {
+                    MessageExt.Instance.ShowDialog("您输入的数值不是整数", "错误");
+                }
+                else
+                {
+                    BasicGameruleOptTextBox.Text = basicGameruleBaseStr + BasicGameruleControlIntTextBox.Text;
+                }
+            }
+
         }
 
         private void BasicCloseBtn_Click(object sender, RoutedEventArgs e)
@@ -205,9 +277,7 @@ namespace CommandTools
 
         private void OpenGithubSite(object sender, RoutedEventArgs e) // 打开Github Repo
         {
-            _ = System.Diagnostics.Process.Start("");
+            _ = System.Diagnostics.Process.Start("https://github.com/AuroraZiling/Minecraft-Command-Tools");
         }
-
-        
     }
 }

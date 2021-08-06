@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Minecraft Command Tools" Height="450" Width="800" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
+        Title="Minecraft Command Tools" Height="450" Width="850" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Button Click="OpenAboutPage" ToolTip="About">
@@ -48,8 +48,8 @@
             </Grid.Background>
             <Label Content="基础命令" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24"/>
             <Label Content="Basic Commands" HorizontalAlignment="Left" Margin="116,22,0,0" VerticalAlignment="Top" Foreground="#FFC8C8C8"/>
-            <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="10,50,0,0" VerticalAlignment="Top" Width="774" Background="#FF7A7A7A"/>
-            <Button x:Name="BasicCloseBtn" Content="Close" HorizontalAlignment="Left" Margin="703,10,0,0" VerticalAlignment="Top" Width="81" Height="35" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" BorderBrush="{x:Null}" Background="#FFFF8B8B" Click="BasicCloseBtn_Click"/>
+            <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="10,50,0,0" VerticalAlignment="Top" Width="823" Background="#FF7A7A7A"/>
+            <Button x:Name="BasicCloseBtn" Content="Close" HorizontalAlignment="Left" Margin="752,10,0,0" VerticalAlignment="Top" Width="81" Height="35" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" BorderBrush="{x:Null}" Background="#FFFF8B8B" Click="BasicCloseBtn_Click"/>
             <Grid HorizontalAlignment="Left" Height="353" Margin="185,57,0,0" VerticalAlignment="Top" Width="599">
                 <Label Content="Minecraft" Margin="160,30,159,0" VerticalAlignment="Top" FontSize="48" FontFamily="OCR A Extended"/>
                 <Label Content="Basic Commands" Margin="92,100,92,0" VerticalAlignment="Top" FontSize="48" FontFamily="OCR A Extended"/>
@@ -99,7 +99,7 @@
                 <ListBoxItem Content="传送"/>
                 <ListBoxItem Content="经验"/>
             </ListBox>
-            <Grid x:Name="BasicGamemodeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="599">
+            <Grid x:Name="BasicGamemodeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648" Visibility="Hidden">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
@@ -121,9 +121,67 @@
                     <Label Content="玩家ID或目标选择器:" HorizontalAlignment="Left" Margin="39,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.59,0.258" Height="26" Width="124"/>
                     <TextBox x:Name="BasicGamemodeTextBox" HorizontalAlignment="Left" Height="29" Margin="168,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" BorderBrush="{x:Null}"/>
                 </Grid>
-                <Button x:Name="BasicGamemodeOptBtn" Content="生成" HorizontalAlignment="Left" Margin="514,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicGamemodeOptBtn_Click"/>
-                <TextBox x:Name="BasicGamemodeOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="499" IsReadOnly="True"/>
+                <Button x:Name="BasicGamemodeOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicGamemodeOptBtn_Click"/>
+                <TextBox x:Name="BasicGamemodeOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
                 <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid x:Name="BasicGameruleGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="游戏规则" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <ComboBox x:Name="BasicGameruleComboBox" HorizontalAlignment="Left" Margin="23,66,0,0" VerticalAlignment="Top" Width="615" FontFamily="Microsoft YaHei" SelectionChanged="BasicGameruleComboBox_SelectionChanged">
+                    <ComboBoxItem Content="显示玩家进度达成 (是否在聊天框中公告玩家进度的达成)"/>
+                    <ComboBoxItem Content="显示命令方块输出 (命令方块执行命令时是否在聊天框中向管理员显示)"/>
+                    <ComboBoxItem Content="鞘翅速度检测        (是否让服务器停止检查使用鞘翅玩家的移动速度)"/>
+                    <ComboBoxItem Content="袭击                      (是否袭击)"/>
+                    <ComboBoxItem Content="日夜交替               (是否进行日夜交替和月相变化)"/>
+                    <ComboBoxItem Content="实体物品掉落        (非生物实体是否掉落物品)"/>
+                    <ComboBoxItem Content="火焰蔓延               (火是否蔓延及自然熄灭)"/>
+                    <ComboBoxItem Content="幻翼夜晚生成        (幻翼是否在夜晚生成)"/>
+                    <ComboBoxItem Content="立即重生               (玩家死亡时是否不显示死亡界面直接重生)"/>
+                    <ComboBoxItem Content="强制合成配方合成 (玩家的合成配方是否需要解锁才能使用)"/>
+                    <ComboBoxItem Content="生物死亡后掉落物 (生物在死亡时是否掉落物品)"/>
+                    <ComboBoxItem Content="生物自然生成        (生物是否自然生成。不影响刷怪笼)"/>
+                    <ComboBoxItem Content="灾厄巡逻队生成    (控制灾厄巡逻队的生成)"/>
+                    <ComboBoxItem Content="方块被破坏掉落    (方块被破坏时是否掉落物品)"/>
+                    <ComboBoxItem Content="流浪商人生成        (控制流浪商人的生成)"/>
+                    <ComboBoxItem Content="天气变化               (天气是否变化)"/>
+                    <ComboBoxItem Content="窒息伤害               (玩家是否承受窒息伤害)"/>
+                    <ComboBoxItem Content="跌落伤害               (玩家是否承受跌落伤害)"/>
+                    <ComboBoxItem Content="火焰伤害               (玩家是否承受火焰伤害)"/>
+                    <ComboBoxItem Content="原谅激怒中立者    (当被激怒的中立生物的目标玩家死亡时，该生物是否恢复中立状态)"/>
+                    <ComboBoxItem Content="冰冻伤害               (玩家是否承受冰冻伤害)"/>
+                    <ComboBoxItem Content="死亡不掉落           (玩家死亡后是否保留物品栏物品、经验)"/>
+                    <ComboBoxItem Content="日志记录管理命令 (是否在服务器日志中记录管理员使用过的命令)"/>
+                    <ComboBoxItem Content="生物破坏               (生物是否能够进行破坏性行为)"/>
+                    <ComboBoxItem Content="自然回血               (玩家是否能在饥饿值足够时自然恢复生命值)"/>
+                    <ComboBoxItem Content="简化调试屏幕信息 (调试屏幕是否简化而非显示详细信息)"/>
+                    <ComboBoxItem Content="显示执行命令返回 (玩家执行命令的返回信息是否在聊天框中显示)"/>
+                    <ComboBoxItem Content="显示生物死亡信息 (是否在聊天框中显示玩家的死亡信息)"/>
+                    <ComboBoxItem Content="旁观者生成新区块 (是否允许旁观模式的玩家生成区块)"/>
+                    <ComboBoxItem Content="中立无差别攻击    (被激怒的中立生物是否攻击附近任何玩家)"/>
+                    <ComboBoxItem Content="最大链命令方块数 (决定了连锁型命令方块能连锁执行的总数量)"/>
+                    <ComboBoxItem Content="生物碰撞和伤害    (玩家或生物能同时推动其他可推动实体的数量，超过此数量时将承受每半秒1.5心的窒息伤害)"/>
+                    <ComboBoxItem Content="重生半径              (首次进入服务器的玩家和没有重生点的死亡玩家在重生时与世界重生点坐标的距离)"/>
+                    <ComboBoxItem Content="随机刻                  (每游戏刻每区段中随机的方块刻发生的频率)"/>
+                    <ComboBoxItem Content="入睡玩家占比过夜 (设置跳过夜晚所需的入睡玩家所占百分比)"/>
+                </ComboBox>
+                <Label Content="规则列表:" HorizontalAlignment="Left" Margin="18,40,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="BasicGameruleOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicGameruleOptBtn_Click"/>
+                <TextBox x:Name="BasicGameruleOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+                <Frame HorizontalAlignment="Left" Height="2" Margin="18,100,0,0" VerticalAlignment="Top" Width="620" Background="#FF838383"/>
+                <Label Content="操作:" HorizontalAlignment="Left" Margin="20,107,0,0" VerticalAlignment="Top"/>
+                <Grid x:Name="BasicGameruleControlBoolGrid" HorizontalAlignment="Left" Height="64" Margin="23,133,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
+                    <RadioButton x:Name="BasicGameruleTrueRadio" Content="启用" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicGameruleEffectGroup"/>
+                    <RadioButton x:Name="BasicGameruleFalseRadio" Content="禁用" HorizontalAlignment="Left" Margin="100,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicGameruleEffectGroup"/>
+                    <Label Content="该规则的参数是布尔值，请选择" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                </Grid>
+                <Grid x:Name="BasicGameruleControlIntGrid" HorizontalAlignment="Left" Height="75" Margin="23,133,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
+                    <Label Content="该规则的参数是整型，请输入值" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="BasicGameruleControlIntTextBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
+                </Grid>
             </Grid>
         </Grid>
         <Grid x:Name="AboutPage" >
@@ -131,19 +189,17 @@
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
             <Label Content="About" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24"/>
-            <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="10,50,0,0" VerticalAlignment="Top" Width="774" Background="#FF7A7A7A"/>
-            <Button x:Name="AboutCloseBtn" Content="Close" HorizontalAlignment="Left" Margin="703,10,0,0" VerticalAlignment="Top" Width="81" Height="35" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" BorderBrush="{x:Null}" Background="#FFFF8B8B" Click="AboutCloseBtn_Click"/>
-            <Label Content="Minecraft Command Tools" Margin="162,57,162.6,0" VerticalAlignment="Top" FontSize="36"/>
-            <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="162,110,0,0" VerticalAlignment="Top" Width="469" Background="#FF7A7A7A"/>
-            <Label Content="The tool is available for Minecraft 1.13 and above" Margin="226,117,226.6,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Version: Dev Alpha 1 Fixed 2" Margin="296,145,297.6,0" VerticalAlignment="Top"/>
-            <Label Content="更新日志:" HorizontalAlignment="Left" Margin="162,180,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <RichTextBox x:Name="AboutUpdateLogText" Height="197" Margin="180,213,180.6,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
+            <Frame Content="Frame" HorizontalAlignment="Left" Height="2" Margin="10,50,0,0" VerticalAlignment="Top" Width="823" Background="#FF7A7A7A"/>
+            <Button x:Name="AboutCloseBtn" Content="Close" HorizontalAlignment="Left" Margin="752,10,0,0" VerticalAlignment="Top" Width="81" Height="35" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" BorderBrush="{x:Null}" Background="#FFFF8B8B" Click="AboutCloseBtn_Click"/>
+            <Label Content="Minecraft Command Tools" Margin="188,56,187.2,0" VerticalAlignment="Top" FontSize="36"/>
+            <Frame Content="Frame" Height="2" Margin="162,110,162.2,0" VerticalAlignment="Top" Background="#FF7A7A7A"/>
+            <Label Content="The tool is available for Minecraft 1.16 and above" Margin="162,113,340.2,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
+            <Label Content="Dev Alpha 2" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
+            <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+            <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,500.6,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
+            </RichTextBox>
+            <Label Content="引用程序集的许可证:" HorizontalAlignment="Left" Margin="347,145,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <RichTextBox x:Name="AboutLicencesText" HorizontalAlignment="Left" Height="235" Margin="347,175,0,0" VerticalAlignment="Top" Width="486" IsReadOnly="True">
             </RichTextBox>
         </Grid>
     </Grid>
