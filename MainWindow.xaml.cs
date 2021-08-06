@@ -30,6 +30,7 @@ namespace CommandTools
             BasicPage.Visibility = Visibility.Hidden;
             BasicGamemodeGrid.Visibility = Visibility.Hidden;
             BasicGameruleGrid.Visibility = Visibility.Hidden;
+            BasicDifficultyGrid.Visibility = Visibility.Hidden;
             //获取嵌入的updateLog内容 -> About的更新日志
             Assembly updateLogAssembly = Assembly.GetExecutingAssembly();
             Stream updateLogConfigStream = updateLogAssembly.GetManifestResourceStream("CommandTools.updateLog.txt");
@@ -69,15 +70,22 @@ namespace CommandTools
             if (BasicListBox.SelectedItem.ToString().EndsWith("游戏模式"))
             {
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicGamemodeGrid.Visibility = Visibility.Visible;
                 BasicGamemodeOnWorldRadio.IsChecked = true;
             }
             else if (BasicListBox.SelectedItem.ToString().EndsWith("游戏规则"))
             {
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Visible;
                 BasicGameruleComboBox.SelectedIndex = 0;
-                BasicGameruleTrueRadio.IsChecked = true;
+            }
+            else if (BasicListBox.SelectedItem.ToString().EndsWith("世界难度"))
+            {
+                BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Visible;
             }
         }
         /// <summary>
@@ -184,6 +192,29 @@ namespace CommandTools
 
         }
 
+        /// <summary>
+        /// 基础命令 - 世界难度
+        /// </summary>
+        private void BasicDifficultyOptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (BasicDifficultyPeacefulRadio.IsChecked == true)
+            {
+                BasicDifficultyOptTextBox.Text = "/difficulty peaceful";
+            }
+            else if (BasicDifficultyEasyRadio.IsChecked == true)
+            {
+                BasicDifficultyOptTextBox.Text = "/difficulty easy";
+            }
+            else if (BasicDifficultyNormalRadio.IsChecked == true)
+            {
+                BasicDifficultyOptTextBox.Text = "/difficulty normal";
+            }
+            else if (BasicDifficultyHardRadio.IsChecked == true)
+            {
+                BasicDifficultyOptTextBox.Text = "/difficulty hard";
+            }
+        }
+
         private void BasicCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             BasicPage.Visibility = Visibility.Hidden;
@@ -265,9 +296,24 @@ namespace CommandTools
             if (result == MessageDialogResult.Affirmative)
                 await Task.Factory.StartNew(action);
         }
+
+        /// <summary>
+        /// 关于
+        /// </summary>
+
         private void OpenAboutPage(object sender, RoutedEventArgs e)
         {
             AboutPage.Visibility = Visibility.Visible;
+        }
+
+        private void AboutMinecraftWikiBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _ = System.Diagnostics.Process.Start("https://minecraft.fandom.com/wiki/Minecraft_Wiki");
+        }
+
+        private void AboutMCModBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _ = System.Diagnostics.Process.Start("https://www.mcmod.cn/tools/cbcreator/");
         }
 
         private void AboutCloseBtn_Click(object sender, RoutedEventArgs e)
@@ -279,5 +325,7 @@ namespace CommandTools
         {
             _ = System.Diagnostics.Process.Start("https://github.com/AuroraZiling/Minecraft-Command-Tools");
         }
+
+        
     }
 }

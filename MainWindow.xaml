@@ -104,7 +104,7 @@
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
                 <Label Content="游戏模式" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
-                <RadioButton x:Name="BasicGamemodeOnWorldRadio" Content="作用于世界" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicGamemodeOnWorldRadio_Checked"/>
+                <RadioButton x:Name="BasicGamemodeOnWorldRadio" Content="作用于世界" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicGamemodeOnWorldRadio_Checked" />
                 <RadioButton x:Name="BasicGamemodeOnPlayerRadio" Content="作用于玩家" HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicGamemodeOnPlayerRadio_Checked"/>
                 <RadioButton x:Name="BasicGamemodeSurvivalRadio" Content="生存模式" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei" IsChecked="True"/>
                 <RadioButton x:Name="BasicGamemodeCreativeRadio" Content="创造模式" HorizontalAlignment="Left" Margin="130,100,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicGamemodeModeGroup" FontFamily="Microsoft YaHei"/>
@@ -125,7 +125,7 @@
                 <TextBox x:Name="BasicGamemodeOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
                 <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
             </Grid>
-            <Grid x:Name="BasicGameruleGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+            <Grid x:Name="BasicGameruleGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648" Visibility="Hidden">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
@@ -174,7 +174,7 @@
                 <Frame HorizontalAlignment="Left" Height="2" Margin="18,100,0,0" VerticalAlignment="Top" Width="620" Background="#FF838383"/>
                 <Label Content="操作:" HorizontalAlignment="Left" Margin="20,107,0,0" VerticalAlignment="Top"/>
                 <Grid x:Name="BasicGameruleControlBoolGrid" HorizontalAlignment="Left" Height="64" Margin="23,133,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
-                    <RadioButton x:Name="BasicGameruleTrueRadio" Content="启用" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicGameruleEffectGroup"/>
+                    <RadioButton x:Name="BasicGameruleTrueRadio" Content="启用" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicGameruleEffectGroup" IsChecked="True"/>
                     <RadioButton x:Name="BasicGameruleFalseRadio" Content="禁用" HorizontalAlignment="Left" Margin="100,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicGameruleEffectGroup"/>
                     <Label Content="该规则的参数是布尔值，请选择" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
                 </Grid>
@@ -182,6 +182,19 @@
                     <Label Content="该规则的参数是整型，请输入值" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="BasicGameruleControlIntTextBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
                 </Grid>
+            </Grid>
+            <Grid x:Name="BasicDifficultyGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="世界难度" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <Button x:Name="BasicDifficultyOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicDifficultyOptBtn_Click"/>
+                <TextBox x:Name="BasicDifficultyOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="BasicDifficultyPeacefulRadio" Content="和平" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup" IsChecked="True"/>
+                <RadioButton x:Name="BasicDifficultyEasyRadio" Content="简单" HorizontalAlignment="Left" Margin="110,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
+                <RadioButton x:Name="BasicDifficultyNormalRadio" Content="普通" HorizontalAlignment="Left" Margin="170,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
+                <RadioButton x:Name="BasicDifficultyHardRadio" Content="困难" HorizontalAlignment="Left" Margin="230,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
             </Grid>
         </Grid>
         <Grid x:Name="AboutPage" >
@@ -194,13 +207,16 @@
             <Label Content="Minecraft Command Tools" Margin="188,56,187.2,0" VerticalAlignment="Top" FontSize="36"/>
             <Frame Content="Frame" Height="2" Margin="162,110,162.2,0" VerticalAlignment="Top" Background="#FF7A7A7A"/>
             <Label Content="The tool is available for Minecraft 1.16 and above" Margin="162,113,340.2,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Dev Alpha 2" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
-            <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
-            <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,500.6,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
+            <Label Content="Dev Alpha 3" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
+            <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+            <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,538.2,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
             </RichTextBox>
-            <Label Content="引用程序集的许可证:" HorizontalAlignment="Left" Margin="347,145,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <RichTextBox x:Name="AboutLicencesText" HorizontalAlignment="Left" Height="235" Margin="347,175,0,0" VerticalAlignment="Top" Width="486" IsReadOnly="True">
+            <Label Content="引用程序集的许可证:" HorizontalAlignment="Left" Margin="319,143,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <RichTextBox x:Name="AboutLicencesText" HorizontalAlignment="Left" Height="235" Margin="319,175,0,0" VerticalAlignment="Top" Width="288" IsReadOnly="True">
             </RichTextBox>
+            <Label Content="参考资料:" HorizontalAlignment="Left" Margin="615,143,0,0" VerticalAlignment="Top" Height="26" FontSize="14"/>
+            <Button x:Name="AboutMinecraftWikiBtn" Content="Minecraft Wiki" HorizontalAlignment="Left" Margin="615,177,0,0" VerticalAlignment="Top" Width="200" BorderBrush="{x:Null}" Background="#FF94D3FF" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" FontWeight="Normal" Click="AboutMinecraftWikiBtn_Click"/>
+            <Button x:Name="AboutMCModBtn" Content="MCMod - CB Creator" HorizontalAlignment="Left" Margin="615,216,0,0" VerticalAlignment="Top" Width="200" BorderBrush="{x:Null}" Background="#FF94D3FF" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Microsoft YaHei" FontSize="16" FontWeight="Normal" Click="AboutMCModBtn_Click"/>
         </Grid>
     </Grid>
 </mah:MetroWindow>
