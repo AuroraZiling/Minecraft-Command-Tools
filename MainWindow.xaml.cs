@@ -306,7 +306,7 @@ namespace CommandTools
                 }
                 else
                 {
-                    BasicSpawnpointOptTextBox.Text = baseStr + positive;
+                    BasicSpawnpointOptTextBox.Text = baseStr + positive.Remove(0, 1);
                 }
             }
         }
