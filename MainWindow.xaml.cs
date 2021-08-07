@@ -256,7 +256,7 @@ namespace CommandTools
             {
                 baseStr = "/spawnpoint ";
             }
-            if (BasicSpawnpointTextBox.Text == "")
+            if (BasicSpawnpointTextBox.Text == "" && BasicSpawnpointOnPlayerRadio.IsChecked == true)
             {
                 MessageExt.Instance.ShowDialog("您没有填入目标选择器", "错误");
             }
