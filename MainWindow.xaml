@@ -183,7 +183,7 @@
                     <TextBox x:Name="BasicGameruleControlIntTextBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="BasicDifficultyGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+            <Grid x:Name="BasicDifficultyGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648" Visibility="Hidden">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
@@ -196,6 +196,41 @@
                 <RadioButton x:Name="BasicDifficultyNormalRadio" Content="普通" HorizontalAlignment="Left" Margin="170,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
                 <RadioButton x:Name="BasicDifficultyHardRadio" Content="困难" HorizontalAlignment="Left" Margin="230,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
             </Grid>
+            <Grid x:Name="BasicSpawnpointGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="出生点" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <RadioButton x:Name="BasicSpawnpointOnWorldRadio" Content="作用于世界" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicSpawnpointEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicSpawnpointOnWorldRadio_Checked" />
+                <RadioButton x:Name="BasicSpawnpointOnPlayerRadio" Content="作用于玩家" HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Background="{x:Null}" GroupName="BasicSpawnpointEffectGroup" FontFamily="Microsoft YaHei" Checked="BasicSpawnpointOnPlayerRadio_Checked"/>
+
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="BasicSpawnpointOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicSpawnpointOptBtn_Click"/>
+                <TextBox x:Name="BasicSpawnpointOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
+                <Label Content="X坐标:" HorizontalAlignment="Left" Margin="50,80,0,0" VerticalAlignment="Top"/>
+                <Label Content="Y坐标:" HorizontalAlignment="Left" Margin="50,111,0,0" VerticalAlignment="Top"/>
+                <Label Content="Z坐标:" HorizontalAlignment="Left" Margin="50,142,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="BasicSpawnpointXTextBox" HorizontalAlignment="Left" Height="23" Margin="100,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+                <TextBox x:Name="BasicSpawnpointYTextBox" HorizontalAlignment="Left" Height="23" Margin="100,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+                <TextBox x:Name="BasicSpawnpointZTextBox" HorizontalAlignment="Left" Height="23" Margin="100,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+                <RadioButton x:Name="BasicSpawnpointMode1ARadio" Content="绝对坐标" HorizontalAlignment="Left" Margin="255,80,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode1Group" IsChecked="True"/>
+                <RadioButton x:Name="BasicSpawnpointMode1RRadio" Content="相对坐标" HorizontalAlignment="Left" Margin="332,80,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode1Group"/>
+                <RadioButton x:Name="BasicSpawnpointMode2ARadio" Content="绝对坐标" HorizontalAlignment="Left" Margin="255,111,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode2Group" IsChecked="True"/>
+                <RadioButton x:Name="BasicSpawnpointMode2RRadio" Content="相对坐标" HorizontalAlignment="Left" Margin="332,111,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode2Group"/>
+                <RadioButton x:Name="BasicSpawnpointMode3ARadio" Content="绝对坐标" HorizontalAlignment="Left" Margin="255,142,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode3Group" IsChecked="True"/>
+                <RadioButton x:Name="BasicSpawnpointMode3RRadio" Content="相对坐标" HorizontalAlignment="Left" Margin="332,142,0,0" VerticalAlignment="Top" Height="26" FontFamily="Microsoft YaHei" GroupName="BasicSpawnpointMode3Group"/>
+                <Grid x:Name="BasicSpawnpointSelectorGrid" HorizontalAlignment="Left" Height="89" Margin="14,173,0,0" VerticalAlignment="Top" Width="432" Visibility="Hidden">
+                    <ComboBox x:Name="BasicSpawnpointComboBox" HorizontalAlignment="Left" Margin="168,27,0,0" VerticalAlignment="Top" Width="230" IsEditable="True" Height="30" FontFamily="Microsoft YaHei" SelectionChanged="BasicSpawnpointComboBox_SelectionChanged">
+                        <ComboBoxItem Content="玩家:最近 (@p)"/>
+                        <ComboBoxItem Content="玩家:全部 (@a)"/>
+                        <ComboBoxItem Content="玩家:随机 (@r)"/>
+                        <ComboBoxItem Content="实体:全部 (@e)"/>
+                        <ComboBoxItem Content="实体:自己 (@s)"/>
+                    </ComboBox>
+                    <Label Content="玩家ID或目标选择器:" HorizontalAlignment="Left" Margin="39,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.59,0.258" Height="26" Width="124"/>
+                    <TextBox x:Name="BasicSpawnpointTextBox" HorizontalAlignment="Left" Height="29" Margin="168,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" BorderBrush="{x:Null}"/>
+                </Grid>
+            </Grid>
         </Grid>
         <Grid x:Name="AboutPage" >
             <Grid.Background>
@@ -207,7 +242,7 @@
             <Label Content="Minecraft Command Tools" Margin="188,56,187.2,0" VerticalAlignment="Top" FontSize="36"/>
             <Frame Content="Frame" Height="2" Margin="162,110,162.2,0" VerticalAlignment="Top" Background="#FF7A7A7A"/>
             <Label Content="The tool is available for Minecraft 1.16 and above" Margin="162,113,340.2,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Dev Alpha 3" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
+            <Label Content="Dev Alpha 4" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
             <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
             <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,538.2,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
             </RichTextBox>

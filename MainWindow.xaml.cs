@@ -31,6 +31,7 @@ namespace CommandTools
             BasicGamemodeGrid.Visibility = Visibility.Hidden;
             BasicGameruleGrid.Visibility = Visibility.Hidden;
             BasicDifficultyGrid.Visibility = Visibility.Hidden;
+            BasicSpawnpointGrid.Visibility = Visibility.Hidden;
             //获取嵌入的updateLog内容 -> About的更新日志
             Assembly updateLogAssembly = Assembly.GetExecutingAssembly();
             Stream updateLogConfigStream = updateLogAssembly.GetManifestResourceStream("CommandTools.updateLog.txt");
@@ -71,6 +72,7 @@ namespace CommandTools
             {
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicGamemodeGrid.Visibility = Visibility.Visible;
                 BasicGamemodeOnWorldRadio.IsChecked = true;
             }
@@ -78,6 +80,7 @@ namespace CommandTools
             {
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Visible;
                 BasicGameruleComboBox.SelectedIndex = 0;
             }
@@ -85,7 +88,19 @@ namespace CommandTools
             {
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Visible;
+            }
+            else if (BasicListBox.SelectedItem.ToString().EndsWith("出生点"))
+            {
+                BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Visible;
+                BasicSpawnpointOnWorldRadio.IsChecked = true;
+                BasicSpawnpointMode1ARadio.IsChecked = true;
+                BasicSpawnpointMode2ARadio.IsChecked = true;
+                BasicSpawnpointMode3ARadio.IsChecked = true;
             }
         }
         /// <summary>
@@ -212,6 +227,87 @@ namespace CommandTools
             else if (BasicDifficultyHardRadio.IsChecked == true)
             {
                 BasicDifficultyOptTextBox.Text = "/difficulty hard";
+            }
+        }
+
+        /// <summary>
+        /// 基础命令 - 出生点
+        /// </summary>
+        private void BasicSpawnpointOnWorldRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            BasicSpawnpointSelectorGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void BasicSpawnpointOnPlayerRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            BasicSpawnpointSelectorGrid.Visibility = Visibility.Visible;
+        }
+
+        private void BasicSpawnpointComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BasicSpawnpointTextBox.Text = BasicSpawnpointComboBox.SelectedItem.ToString()[45] + "" + BasicSpawnpointComboBox.SelectedItem.ToString()[46];
+        }
+
+        private void BasicSpawnpointOptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string baseStr = "/setworldspawn ";
+            string positive = " ";
+            if (BasicSpawnpointOnPlayerRadio.IsChecked == true)
+            {
+                baseStr = "/spawnpoint ";
+            }
+            if (BasicSpawnpointTextBox.Text == "")
+            {
+                MessageExt.Instance.ShowDialog("您没有填入目标选择器", "错误");
+            }
+            else if (BasicSpawnpointXTextBox.Text == "")
+            {
+                MessageExt.Instance.ShowDialog("您没有填入X坐标", "错误");
+            }
+            else if (BasicSpawnpointYTextBox.Text == "")
+            {
+                MessageExt.Instance.ShowDialog("您没有填入Y坐标", "错误");
+            }
+            else if (BasicSpawnpointZTextBox.Text == "")
+            {
+                MessageExt.Instance.ShowDialog("您没有填入Z坐标", "错误");
+            }
+            else
+            {
+                if (BasicSpawnpointMode1ARadio.IsChecked == true)
+                {
+                    positive += BasicSpawnpointXTextBox.Text;
+                }
+                else
+                {
+                    positive += "~" + BasicSpawnpointXTextBox.Text;
+                }
+                positive += " ";
+                if (BasicSpawnpointMode2ARadio.IsChecked == true)
+                {
+                    positive += BasicSpawnpointYTextBox.Text;
+                }
+                else
+                {
+                    positive += "~" + BasicSpawnpointYTextBox.Text;
+                }
+                positive += " ";
+                if (BasicSpawnpointMode3ARadio.IsChecked == true)
+                {
+                    positive += BasicSpawnpointZTextBox.Text;
+                }
+                else
+                {
+                    positive += "~" + BasicSpawnpointZTextBox.Text;
+                }
+                if (BasicSpawnpointOnPlayerRadio.IsChecked == true)
+                {
+                    BasicSpawnpointOptTextBox.Text = baseStr + BasicSpawnpointTextBox.Text + positive;
+                }
+                else
+                {
+                    BasicSpawnpointOptTextBox.Text = baseStr + positive;
+                }
             }
         }
 
