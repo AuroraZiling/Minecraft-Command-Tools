@@ -32,6 +32,7 @@ namespace CommandTools
             BasicGameruleGrid.Visibility = Visibility.Hidden;
             BasicDifficultyGrid.Visibility = Visibility.Hidden;
             BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+            BasicTimeGrid.Visibility = Visibility.Hidden;
             //获取嵌入的updateLog内容 -> About的更新日志
             Assembly updateLogAssembly = Assembly.GetExecutingAssembly();
             Stream updateLogConfigStream = updateLogAssembly.GetManifestResourceStream("CommandTools.updateLog.txt");
@@ -73,6 +74,7 @@ namespace CommandTools
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Hidden;
                 BasicGamemodeGrid.Visibility = Visibility.Visible;
                 BasicGamemodeOnWorldRadio.IsChecked = true;
             }
@@ -81,6 +83,7 @@ namespace CommandTools
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Visible;
                 BasicGameruleComboBox.SelectedIndex = 0;
             }
@@ -89,6 +92,7 @@ namespace CommandTools
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Visible;
             }
             else if (BasicListBox.SelectedItem.ToString().EndsWith("出生点"))
@@ -96,11 +100,23 @@ namespace CommandTools
                 BasicGamemodeGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Visible;
                 BasicSpawnpointOnWorldRadio.IsChecked = true;
                 BasicSpawnpointMode1ARadio.IsChecked = true;
                 BasicSpawnpointMode2ARadio.IsChecked = true;
                 BasicSpawnpointMode3ARadio.IsChecked = true;
+            }
+            else if (BasicListBox.SelectedItem.ToString().EndsWith("时间"))
+            {
+                BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Visible;
+                BasicTimeSetRadio.IsChecked = true;
+                BasicTimeAddComboBox.SelectedIndex = 0;
+                BasicTimeQueryComboBox.SelectedIndex = 0;
             }
         }
         /// <summary>
@@ -197,7 +213,7 @@ namespace CommandTools
                 }
                 else if (!System.Text.RegularExpressions.Regex.IsMatch(BasicGameruleControlIntTextBox.Text, @"^\d*$"))
                 {
-                    MessageExt.Instance.ShowDialog("您输入的数值不是整数", "错误");
+                    MessageExt.Instance.ShowDialog("您输入的数值不是非负整数", "错误");
                 }
                 else
                 {
@@ -307,6 +323,132 @@ namespace CommandTools
                 else
                 {
                     BasicSpawnpointOptTextBox.Text = baseStr + positive.Remove(0, 1);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 基础命令 - 时间
+        /// </summary>
+        private void BasicTimeSetRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            BasicTimeAddGrid.Visibility = Visibility.Hidden;
+            BasicTimeQueryGrid.Visibility = Visibility.Hidden;
+            BasicTimeSetGrid.Visibility = Visibility.Visible;
+        }
+
+        private void BasicTimeAddRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            BasicTimeSetGrid.Visibility = Visibility.Hidden;
+            BasicTimeQueryGrid.Visibility = Visibility.Hidden;
+            BasicTimeAddGrid.Visibility = Visibility.Visible;
+        }
+
+        private void BasicTimeQueryRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            BasicTimeAddGrid.Visibility = Visibility.Hidden;
+            BasicTimeSetGrid.Visibility = Visibility.Hidden;
+            BasicTimeQueryGrid.Visibility = Visibility.Visible;
+        }
+
+        private void BasicTimeSetComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BasicTimeSetComboBox.SelectedIndex == 0)
+            {
+                BasicTimeSetTextBox.Text = "1000";
+            }
+            else if (BasicTimeSetComboBox.SelectedIndex == 1)
+            {
+                BasicTimeSetTextBox.Text = "6000";
+            }
+            else if (BasicTimeSetComboBox.SelectedIndex == 2)
+            {
+                BasicTimeSetTextBox.Text = "11000";
+            }
+            else if (BasicTimeSetComboBox.SelectedIndex == 3)
+            {
+                BasicTimeSetTextBox.Text = "18000";
+            }
+        }
+
+        public double basicTimeAddexChange = 1;
+
+        private void BasicTimeAddComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BasicTimeAddComboBox.SelectedIndex == 0)
+            {
+                basicTimeAddexChange = 1;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 1)
+            {
+                basicTimeAddexChange = 1199.2;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 2)
+            {
+                basicTimeAddexChange = 72000;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 3)
+            {
+                basicTimeAddexChange = 648000;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 4)
+            {
+                basicTimeAddexChange = 16.6;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 5)
+            {
+                basicTimeAddexChange = 1000;
+            }
+            else if (BasicTimeAddComboBox.SelectedIndex == 6)
+            {
+                basicTimeAddexChange = 24000;
+            }
+        }
+
+        public int basicTimeQueryMode = 0;
+
+        private void BasicTimeQueryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            basicTimeQueryMode = BasicTimeQueryComboBox.SelectedIndex;
+        }
+
+        private void BasicTimeOptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (BasicTimeSetRadio.IsChecked == true)
+            {
+                if (BasicTimeSetTextBox.Text == "")
+                {
+                    MessageExt.Instance.ShowDialog("您输入的数值为空", "错误");
+                }
+                else
+                {
+                    BasicTimeOptTextBox.Text = "/time set " + BasicTimeSetTextBox.Text;
+                }
+            }
+            else if (BasicTimeAddRadio.IsChecked == true)
+            {
+                if (BasicTimeAddTextBox.Text == "")
+                {
+                    MessageExt.Instance.ShowDialog("您输入的数值为空", "错误");
+                }
+                else
+                {
+                    BasicTimeOptTextBox.Text = "/time add " + (double.Parse(BasicTimeAddTextBox.Text) * basicTimeAddexChange).ToString();
+                }
+            }
+            else if (BasicTimeQueryRadio.IsChecked == true)
+            {
+                if (basicTimeQueryMode == 0)
+                {
+                    BasicTimeOptTextBox.Text = "/time query daytime";
+                }
+                else if (basicTimeQueryMode == 1)
+                {
+                    BasicTimeOptTextBox.Text = "/time query gametime";
+                }
+                else if (basicTimeQueryMode == 2)
+                {
+                    BasicTimeOptTextBox.Text = "/time query day";
                 }
             }
         }

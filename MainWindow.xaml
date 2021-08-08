@@ -42,7 +42,7 @@
             </Frame>
         </Button>
         <Label Content="基础命令" HorizontalAlignment="Left" Margin="60,144,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft YaHei UI Light"/>
-        <Grid x:Name="BasicPage" Visibility="Hidden">
+        <Grid x:Name="BasicPage">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -231,8 +231,51 @@
                     <TextBox x:Name="BasicSpawnpointTextBox" HorizontalAlignment="Left" Height="29" Margin="168,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" BorderBrush="{x:Null}"/>
                 </Grid>
             </Grid>
+            <Grid x:Name="BasicTimeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="时间" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <RadioButton x:Name="BasicTimeSetRadio" Content="设置时间" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicTimeGroup" Checked="BasicTimeSetRadio_Checked"/>
+                <RadioButton x:Name="BasicTimeAddRadio" Content="增加时间" HorizontalAlignment="Left" Margin="130,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicTimeGroup" RenderTransformOrigin="1.206,0.807" Checked="BasicTimeAddRadio_Checked"/>
+                <RadioButton x:Name="BasicTimeQueryRadio" Content="查询时间" HorizontalAlignment="Left" Margin="210,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicTimeGroup" Checked="BasicTimeQueryRadio_Checked"/>
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="BasicTimeOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicTimeOptBtn_Click"/>
+                <TextBox x:Name="BasicTimeOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
+                <Grid x:Name="BasicTimeSetGrid" HorizontalAlignment="Left" Height="100" Margin="50,100,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
+                    <Label Content="游戏刻:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="BasicTimeSetComboBox" HorizontalAlignment="Left" Margin="65,10,0,0" VerticalAlignment="Top" Width="150" Height="26" SelectionChanged="BasicTimeSetComboBox_SelectionChanged">
+                        <ComboBoxItem Content="早上   07:00" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="中午   12:00" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="傍晚   17:00" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="半夜   00:00" FontFamily="Microsoft YaHei"/>
+                    </ComboBox>
+                    <TextBox x:Name="BasicTimeSetTextBox" HorizontalAlignment="Left" Height="23" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
+                </Grid>
+                <Grid x:Name="BasicTimeAddGrid" HorizontalAlignment="Left" Height="100" Margin="50,100,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
+                    <Label Content="参数:" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="40"/>
+                    <ComboBox x:Name="BasicTimeAddComboBox" HorizontalAlignment="Left" Margin="198,10,0,0" VerticalAlignment="Top" Width="96" Height="26" SelectionChanged="BasicTimeAddComboBox_SelectionChanged">
+                        <ComboBoxItem Content="游戏刻" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="现实:分" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="现实:时" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="现实:天" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="游戏:分" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="游戏:时" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="游戏:天" FontFamily="Microsoft YaHei"/>
+                    </ComboBox>
+                    <TextBox x:Name="BasicTimeAddTextBox" HorizontalAlignment="Left" Height="23" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
+                </Grid>
+                <Grid x:Name="BasicTimeQueryGrid" HorizontalAlignment="Left" Height="100" Margin="50,100,0,0" VerticalAlignment="Top" Width="304" Visibility="Hidden">
+                    <Label Content="模式:" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="40"/>
+                    <ComboBox x:Name="BasicTimeQueryComboBox" HorizontalAlignment="Left" Margin="65,10,0,0" VerticalAlignment="Top" Width="229" Height="26" SelectionChanged="BasicTimeQueryComboBox_SelectionChanged">
+                        <ComboBoxItem Content="当天日出后流逝的总游戏刻数" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="进入游戏后流逝的总游戏刻数" FontFamily="Microsoft YaHei"/>
+                        <ComboBoxItem Content="当前存档流逝的游戏总天数 " FontFamily="Microsoft YaHei"/>
+                    </ComboBox>
+                </Grid>
+            </Grid>
         </Grid>
-        <Grid x:Name="AboutPage" >
+        <Grid x:Name="AboutPage" Visibility="Hidden" >
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -242,7 +285,7 @@
             <Label Content="Minecraft Command Tools" Margin="188,56,187.2,0" VerticalAlignment="Top" FontSize="36"/>
             <Frame Content="Frame" Height="2" Margin="162,110,162.2,0" VerticalAlignment="Top" Background="#FF7A7A7A"/>
             <Label Content="The tool is available for Minecraft 1.16 and above" Margin="162,113,340.2,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Dev Alpha 4" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
+            <Label Content="Dev Alpha 5" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
             <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
             <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,538.2,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
             </RichTextBox>
