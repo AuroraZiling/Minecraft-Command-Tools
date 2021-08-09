@@ -42,7 +42,7 @@
             </Frame>
         </Button>
         <Label Content="基础命令" HorizontalAlignment="Left" Margin="60,144,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft YaHei UI Light"/>
-        <Grid x:Name="BasicPage">
+        <Grid x:Name="BasicPage" Visibility="Hidden">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -196,7 +196,7 @@
                 <RadioButton x:Name="BasicDifficultyNormalRadio" Content="普通" HorizontalAlignment="Left" Margin="170,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
                 <RadioButton x:Name="BasicDifficultyHardRadio" Content="困难" HorizontalAlignment="Left" Margin="230,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
             </Grid>
-            <Grid x:Name="BasicSpawnpointGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+            <Grid x:Name="BasicSpawnpointGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648" Visibility="Hidden">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
@@ -231,7 +231,7 @@
                     <TextBox x:Name="BasicSpawnpointTextBox" HorizontalAlignment="Left" Height="29" Margin="168,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" BorderBrush="{x:Null}"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="BasicTimeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+            <Grid x:Name="BasicTimeGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648" Visibility="Hidden">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF9F9F9"/>
                 </Grid.Background>
@@ -274,8 +274,31 @@
                     </ComboBox>
                 </Grid>
             </Grid>
+            <Grid x:Name="BasicWeatherGrid" HorizontalAlignment="Left" Height="355" Margin="185,55,0,0" VerticalAlignment="Top" Width="648">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF9F9F9"/>
+                </Grid.Background>
+                <Label Content="天气" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0"/>
+                <Button x:Name="BasicWeatherOptBtn" Content="生成" HorizontalAlignment="Left" Margin="563,316,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFA7FF9D" FontFamily="Microsoft YaHei" FontSize="14" FontWeight="Normal" Click="BasicWeatherOptBtn_Click"/>
+                <TextBox x:Name="BasicWeatherOptTextBox" HorizontalAlignment="Left" Height="23" Margin="10,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="548" IsReadOnly="True"/>
+                <Label Content="生成命令:" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="BasicWeatherClearRadio" Content="晴天" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup" IsChecked="True"/>
+                <RadioButton x:Name="BasicWeatherRainRadio" Content="雨天" HorizontalAlignment="Left" Margin="110,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup"/>
+                <RadioButton x:Name="BasicWeatherThunderRadio" Content="雷暴" HorizontalAlignment="Left" Margin="170,50,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Microsoft YaHei" GroupName="BasicDifficultyGroup" RenderTransformOrigin="1.308,-0.193"/>
+                <Label Content="持续时间:" HorizontalAlignment="Left" Margin="50,110,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="BasicWeatherKeepTimeTextBox" HorizontalAlignment="Left" Height="26" Margin="116,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
+                <ComboBox x:Name="BasicWeatherComboBox" HorizontalAlignment="Left" Margin="223,110,0,0" VerticalAlignment="Top" Width="96" Height="26">
+                    <ComboBoxItem Content="游戏刻" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="现实:分" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="现实:时" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="现实:天" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="游戏:分" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="游戏:时" FontFamily="Microsoft YaHei"/>
+                    <ComboBoxItem Content="游戏:天" FontFamily="Microsoft YaHei"/>
+                </ComboBox>
+            </Grid>
         </Grid>
-        <Grid x:Name="AboutPage" Visibility="Hidden" >
+        <Grid x:Name="AboutPage" >
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.9"/>
             </Grid.Background>
@@ -285,7 +308,7 @@
             <Label Content="Minecraft Command Tools" Margin="188,56,187.2,0" VerticalAlignment="Top" FontSize="36"/>
             <Frame Content="Frame" Height="2" Margin="162,110,162.2,0" VerticalAlignment="Top" Background="#FF7A7A7A"/>
             <Label Content="The tool is available for Minecraft 1.16 and above" Margin="162,113,340.2,0" VerticalAlignment="Top" FontSize="14" Background="Transparent" Foreground="#FFC8C8C8"/>
-            <Label Content="Dev Alpha 5" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
+            <Label Content="Dev Alpha 6" Margin="503,114,162.2,0" VerticalAlignment="Top" FontSize="13"/>
             <Label Content="更新日志:" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
             <RichTextBox x:Name="AboutUpdateLogText" Height="235" Margin="10,175,538.2,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Microsoft YaHei" FontSize="14">
             </RichTextBox>

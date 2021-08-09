@@ -33,6 +33,7 @@ namespace CommandTools
             BasicDifficultyGrid.Visibility = Visibility.Hidden;
             BasicSpawnpointGrid.Visibility = Visibility.Hidden;
             BasicTimeGrid.Visibility = Visibility.Hidden;
+            BasicWeatherGrid.Visibility = Visibility.Hidden;
             //获取嵌入的updateLog内容 -> About的更新日志
             Assembly updateLogAssembly = Assembly.GetExecutingAssembly();
             Stream updateLogConfigStream = updateLogAssembly.GetManifestResourceStream("CommandTools.updateLog.txt");
@@ -75,6 +76,7 @@ namespace CommandTools
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicTimeGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Hidden;
                 BasicGamemodeGrid.Visibility = Visibility.Visible;
                 BasicGamemodeOnWorldRadio.IsChecked = true;
             }
@@ -84,6 +86,7 @@ namespace CommandTools
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicTimeGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Hidden;
                 BasicGameruleGrid.Visibility = Visibility.Visible;
                 BasicGameruleComboBox.SelectedIndex = 0;
             }
@@ -93,7 +96,9 @@ namespace CommandTools
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
                 BasicTimeGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Visible;
+                BasicDifficultyPeacefulRadio.IsChecked = true;
             }
             else if (BasicListBox.SelectedItem.ToString().EndsWith("出生点"))
             {
@@ -101,6 +106,7 @@ namespace CommandTools
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicTimeGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Visible;
                 BasicSpawnpointOnWorldRadio.IsChecked = true;
                 BasicSpawnpointMode1ARadio.IsChecked = true;
@@ -113,10 +119,22 @@ namespace CommandTools
                 BasicGameruleGrid.Visibility = Visibility.Hidden;
                 BasicDifficultyGrid.Visibility = Visibility.Hidden;
                 BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Hidden;
                 BasicTimeGrid.Visibility = Visibility.Visible;
                 BasicTimeSetRadio.IsChecked = true;
                 BasicTimeAddComboBox.SelectedIndex = 0;
                 BasicTimeQueryComboBox.SelectedIndex = 0;
+            }
+            else if (BasicListBox.SelectedItem.ToString().EndsWith("天气"))
+            {
+                BasicGamemodeGrid.Visibility = Visibility.Hidden;
+                BasicGameruleGrid.Visibility = Visibility.Hidden;
+                BasicDifficultyGrid.Visibility = Visibility.Hidden;
+                BasicSpawnpointGrid.Visibility = Visibility.Hidden;
+                BasicTimeGrid.Visibility = Visibility.Hidden;
+                BasicWeatherGrid.Visibility = Visibility.Visible;
+                BasicWeatherClearRadio.IsChecked = true;
+                BasicWeatherComboBox.SelectedIndex = 0;
             }
         }
         /// <summary>
@@ -433,7 +451,14 @@ namespace CommandTools
                 }
                 else
                 {
-                    BasicTimeOptTextBox.Text = "/time add " + (double.Parse(BasicTimeAddTextBox.Text) * basicTimeAddexChange).ToString();
+                    try
+                    {
+                        BasicTimeOptTextBox.Text = "/time add " + (double.Parse(BasicTimeAddTextBox.Text) * basicTimeAddexChange).ToString();
+                    }
+                    catch
+                    {
+                        MessageExt.Instance.ShowDialog("您输入的数值无法转换为数字", "错误");
+                    }
                 }
             }
             else if (BasicTimeQueryRadio.IsChecked == true)
@@ -449,6 +474,85 @@ namespace CommandTools
                 else if (basicTimeQueryMode == 2)
                 {
                     BasicTimeOptTextBox.Text = "/time query day";
+                }
+            }
+        }
+
+        /// <summary>
+        /// 基础命令 - 天气
+        /// </summary>
+
+        private void BasicWeatherOptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            double ipt_value = 0;
+            try
+            {
+                if (BasicWeatherKeepTimeTextBox.Text != "")
+                {
+                    ipt_value = double.Parse(BasicWeatherKeepTimeTextBox.Text);
+                }
+            }
+            catch
+            {
+                MessageExt.Instance.ShowDialog("您输入的数值无法转换为数字", "错误");
+                return;
+            }
+            if (BasicWeatherComboBox.SelectedIndex == 0)
+            {
+                ipt_value *= 1;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 1)
+            {
+                ipt_value *= 1199.2;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 2)
+            {
+                ipt_value *= 72000;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 3)
+            {
+                ipt_value *= 648000;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 4)
+            {
+                ipt_value *= 16.6;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 5)
+            {
+                ipt_value *= 1000;
+            }
+            else if (BasicWeatherComboBox.SelectedIndex == 6)
+            {
+                ipt_value *= 24000;
+            }
+            if (BasicWeatherKeepTimeTextBox.Text == "")
+            {
+                if (BasicWeatherClearRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather clear";
+                }
+                else if (BasicWeatherRainRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather rain";
+                }
+                else if (BasicWeatherThunderRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather thunder";
+                }
+            }
+            else
+            {
+                if (BasicWeatherClearRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather clear " + ipt_value.ToString();
+                }
+                else if (BasicWeatherRainRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather rain " + ipt_value.ToString();
+                }
+                else if (BasicWeatherThunderRadio.IsChecked == true)
+                {
+                    BasicWeatherOptTextBox.Text = "/weather thunder " + ipt_value.ToString();
                 }
             }
         }
